@@ -36,6 +36,25 @@ void in_queue(_STR_QUEUE *pstQue,int iNum)
      pstQue->AllNum =  pstQue->AllNum + 1;
 }
 
+
+void out_queue(_STR_QUEUE *pstQue)
+{
+    static int iQueueNum = 1 ;
+    if( pstQue->QueueTail ==  pstQue->QueueHead )
+    {
+        printf("the queue is zero now \n");
+        exit(0);
+    }
+    else
+    {
+        printf("%d->",pstQue->ipMaxNum[pstQue->QueueHead]);
+      
+       
+        pstQue->QueueHead = pstQue->QueueHead + 1;
+    }
+  
+   
+}
 void print_queue(_STR_QUEUE *pstQue)
 {
     int iTest = pstQue->QueueHead;
@@ -51,13 +70,20 @@ void print_queue(_STR_QUEUE *pstQue)
 
 int main()
 {
-    _STR_QUEUE *pstQue;
+    _STR_QUEUE *pstQue ;
     int iLoop;
+    int iPopNum;
     pstQue = (_STR_QUEUE *)malloc(sizeof(_STR_QUEUE ));
     init_queue(pstQue);
     for(iLoop=1;iLoop<16;iLoop++)
     {
         in_queue(pstQue,iLoop);
     }
-   print_queue(pstQue); 
+    print_queue(pstQue); 
+    printf("NOw the pop num is :\n");
+    for(iLoop=1;iLoop<60;iLoop++)
+    {
+       out_queue(pstQue);
+    }
+      printf("ok\n");
 }
