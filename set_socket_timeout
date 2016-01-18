@@ -1,0 +1,8 @@
+struct timeval timeout = {3,0}; 
+//设置发送超时
+setsockopt(socket，SOL_SOCKET,SO_SNDTIMEO， (char *)&timeout,sizeof(struct timeval));
+//设置接收超时
+setsockopt(socket，SOL_SOCKET,SO_RCVTIMEO， (char *)&timeout,sizeof(struct timeval));
+有两点注意就是：
+1）recv ()的第四个参数需为MSG_WAITALL，在阻塞模式下不等到指定数目的数据不会返回，除非超时时间到。还要注意的是只要设置了接收超时，在没有MSG_WAITALL时也是有效的。说到底超时就是不让你的程序老在那儿等，到一定时间进行一次返回而已。
+2）即使等待超时时间值未到，但对方已经关闭了socket， 则此时recv()会立即返回，并收到多少数据返回多少数据
